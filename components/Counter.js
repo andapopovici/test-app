@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View } from 'react-native';
+import { Text, StyleSheet, View, Button, Alert } from 'react-native';
 import { connect } from 'react-redux';
+import { incrementCounter, decrementCounter } from '../actions/countActions';
 
 
 class Counter extends Component {
     
     render() {
-        console.log(this.props);
+        console.log(this.props.counter);
         return (
             <View style={{
                 flex: 1,
@@ -19,13 +20,27 @@ class Counter extends Component {
               Counter is: {'\n'}{'\n'}
             </Text>
             <Text>
-              0
-            </Text>
+            {this.props.counter}
+            </Text> 
           </Text>
+          <Button
+            color="green"
+            onPress={() => this.props.dispatch(incrementCounter())}
+            title="INCREMENT" />
+          <Button
+            color="red"
+            onPress={() => this.props.dispatch(decrementCounter())}
+            title="DECREMENT" />  
           </View>
         );
       }
 }
+
+function mapStateToProps(state, ownProps) {
+    return {
+        counter: state.counter        
+    };
+} 
 
 const styles = StyleSheet.create({
     titleText: {
@@ -35,4 +50,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default connect()(Counter);
+export default connect(mapStateToProps)(Counter);

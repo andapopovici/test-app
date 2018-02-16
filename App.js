@@ -7,15 +7,19 @@ import { Provider } from 'react-redux';
 
 import Counter from './components/Counter';
 
-const store = configureStore({
-  "counter": 0
-});
+const config = configureStore({
+  counter: 0
+}); 
 
 export default class App extends React.Component {
   render() {
+    console.log("loggin in App"); 
+    console.log(config.store);
     return (
-      <Provider store={store}>
+      <Provider store={config.store}>
+      <PersistGate loading={null} persistor={config.persistor}>
         <Counter />
+      </PersistGate>  
       </Provider>
     );
   }
